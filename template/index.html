@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Stock Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script>$('.datepicker').datepicker({
+  inline: true
+});</script>
+  </head>
+  <body>
+
+    <h1>Stock Analysis</h1>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">About<span class="sr-only"></span></a>
+            </li>
+           
+            {% comment %} <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li> {% endcomment %}
+          </ul>
+        </div>
+      </nav>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col"> 
+          <div class="m-5 bg-danger p-5">
+            <form action="" method="get">
+              <div class="form-group">
+                <label for="stock">Stock Name/ Code</label>
+                <input type="text" class="form-control" id="stock" name="stock" placeholder="Enter Stock Name">
+              </div>
+              <div class="form-group">
+                <label for="start date"> Start Date</label>
+                <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+                  <input placeholder="Select date" type="date" id="start date" name="start date" class="form-control">
+                  
+                  <i class="fas fa-calendar input-prefix"></i>
+                </div>
+              </div>
+                <label for="End Date"> End Date</label>
+  <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+    <input placeholder="Select date" type="date" id="end date" name="end date" class="form-control">
+    
+    <i class="fas fa-calendar input-prefix"></i>
+  </div>
+              <input type="submit" class="btn btn-primary" value="OK">
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
