@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.http import response
+from django.http.response import HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import yfinance as yf
 
@@ -13,6 +15,39 @@ import pandas_datareader.data as web
 import pandas_datareader as pdr
 from pandas_datareader import data, wb
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+def get_data(request, *args, **kwargs):
+
+    data ={
+        "sales" : 100,
+        "person": 10000,
+    }
+    return JsonResponse(data) # http response
+
+class ChartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+   
+    def get(self, request, format = None):
+        labels = [
+            'January',
+            'February', 
+            'March', 
+            'April', 
+            'May', 
+            'June', 
+            'July'
+            ]
+        chartLabel = "my data"
+        chartdata = [0, 10, 5, 2, 20, 30, 45]
+        data ={
+                     "labels":labels,
+                     "chartLabel":chartLabel,
+                     "chartdata":chartdata,
+             }
+        return response(data)
 
 def index(request):
     print(request.GET)
@@ -20,9 +55,14 @@ def index(request):
         stock=request.GET.get('stock',False)
         start_date=request.GET.get('start date',False)
         end_date=request.GET.get('end date',False )
-        tickerData=yf.Ticker(stock)
-        tickerDf=tickerData.history(period='1d', start=start_date, end=end_date)
-        print(tickerDf)
+        if stock:
+            tickerData=yf.Ticker(stock)
+            tickerDf=tickerData.history(period='1d', start=start_date, end=end_date)
+            print(tickerDf)
+            return render(request, 'graph.html')
+
+        # if stock!=None:
+
 
         # start = datetime.datetime(2018,4,20)
         # end = datetime.datetime(2018,5,20)
@@ -36,7 +76,7 @@ def index(request):
         #     my_list = pd.DataFrame(list(cr))
             
         # #View the top rows
-        # printmy_list.head()
+        # print(my_list.head())
 
     return render(request, 'index.html')
     
