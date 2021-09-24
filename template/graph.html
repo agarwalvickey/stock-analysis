@@ -4,6 +4,8 @@
 <head>
 <meta charset="utf-8">
 <title>chatsjs</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -32,7 +34,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
+<center>
 <script>
 	var endpoint = '/api';
 
@@ -87,7 +89,7 @@
 	});
 	}
 
-	function drawBarGraph(data, id) {
+	{% comment %} function drawBarGraph(data, id) {
 	var labels = data.labels;
 	var chartLabel = data.chartLabel;
 	var chartdata = data.chartdata;
@@ -128,8 +130,9 @@
 		}
 		}
 	});
-	}
+	} {% endcomment %}
 </script>
+</center>
 </body>
 
 </html>

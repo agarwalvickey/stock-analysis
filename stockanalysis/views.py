@@ -4,6 +4,9 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import yfinance as yf
 
+import pandas as pd
+import requests
+
 from datetime import datetime, timedelta
 import pandas as pd
 pd.core.common.is_list_like = pd.api.types.is_list_like #For solving import pandas_datareader issue
@@ -18,6 +21,12 @@ from pandas_datareader import data, wb
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from django.views.generic import View
+
+date = []
+values = []
+
+
 def get_data(request, *args, **kwargs):
 
     data ={
@@ -31,6 +40,7 @@ class ChartData(APIView):
     permission_classes = []
    
     def get(self, request, format = None):
+        
         labels = [
             'January',
             'February', 
@@ -42,12 +52,14 @@ class ChartData(APIView):
             ]
         chartLabel = "my data"
         chartdata = [0, 10, 5, 2, 20, 30, 45]
+        labels = date
+        chartdata = values
         data ={
                      "labels":labels,
                      "chartLabel":chartLabel,
                      "chartdata":chartdata,
              }
-        return response(data)
+        return Response(data)
 
 def index(request):
     print(request.GET)
@@ -59,6 +71,18 @@ def index(request):
             tickerData=yf.Ticker(stock)
             tickerDf=tickerData.history(period='1d', start=start_date, end=end_date)
             print(tickerDf)
+            stock_data = tickerDf.values.tolist()
+            print(stock_data)
+            values.clear()
+            date.clear()
+            for l in stock_data:
+                values.append(l[3])
+            data_top = tickerDf.head()
+            for row in data_top.index:
+                date.append(row)
+                print(row, end = " ")
+            print(len(date))
+            len(values)
             return render(request, 'graph.html')
 
         # if stock!=None:
