@@ -75,14 +75,19 @@ def index(request):
             print(stock_data)
             values.clear()
             date.clear()
+            
+            
             for l in stock_data:
+                values.append(l[0])
                 values.append(l[3])
+    
             data_top = tickerDf.head()
-            for row in data_top.index:
-                date.append(row)
-                print(row, end = " ")
+            date.append(start_date)
+            for i in range(len(values)-2):
+                date.append(" ")
+            date.append(end_date)
             print(len(date))
-            len(values)
+            print(len(values))
             return render(request, 'graph.html')
 
         # if stock!=None:
